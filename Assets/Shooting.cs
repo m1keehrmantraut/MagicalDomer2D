@@ -35,7 +35,7 @@ public class Shooting : MonoBehaviour
         if (shootStatus)
         {
             Instantiate(bullet, shotPoint.position, shotPoint.rotation);
-            
+
             StartCoroutine(ShootTime(timeBtwShots));
         }
     }

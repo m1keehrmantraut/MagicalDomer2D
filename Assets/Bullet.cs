@@ -33,11 +33,17 @@ public class Bullet : MonoBehaviour
             {
                 // hitInfo.collider.GetComponent<PlayerHealth>().TakeDamage(enemyDamage);
             }
-            DestroyBullet();
         }
         transform.Translate(Vector2.up * speed * Time.deltaTime);
     }
 
+    private void OnTriggerEnter2D(Collider2D hit)
+    {
+        if (hit.tag == "Ground")
+        {
+            DestroyBullet();
+        }
+    }
     public void DestroyBullet()
     {
         // GameObject im = Instantiate(destroyEffect, transform.position, Quaternion.identity);

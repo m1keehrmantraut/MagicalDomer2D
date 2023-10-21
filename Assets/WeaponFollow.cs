@@ -12,7 +12,7 @@ public class WeaponFollow : MonoBehaviour
 
     private float gunRotation;
 
-    private CharacterController2D player;
+    public CharacterController2D player;
 
     private void Start()
     {
@@ -21,15 +21,30 @@ public class WeaponFollow : MonoBehaviour
 
     private void Update()
     {
-        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        Vector3 difference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - _gunSprite.transform.position;
         difference.Normalize();
         
         float rotZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-        
+        Debug.Log(player.m_FacingRight);
+        if ((80 < rotZ && rotZ < 180) && player.m_FacingRight)
+        {
+            player.Flip();
+        }
+        if ((0 < rotZ && rotZ < 80) && !player.m_FacingRight)
+        {
+            player.Flip();
+        }
+        if ((-80 > rotZ && rotZ > -180) && player.m_FacingRight)
+        {
+            player.Flip();
+        }
+        if ((0 > rotZ && rotZ > -80) && !player.m_FacingRight)
+        {
+            player.Flip();
+        }
+
         offset = player.offset;
-        transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
-        
-        
+        _gunSprite.transform.rotation = Quaternion.Euler(0f, 0f, rotZ + offset);
     }
     
 }
